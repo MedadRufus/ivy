@@ -8,6 +8,7 @@ import sys
 import time
 import cv2
 import pafy
+import os
 
 from dotenv import load_dotenv
 load_dotenv()
@@ -17,6 +18,7 @@ from util.logger import init_logger
 from util.image import take_screenshot
 from util.logger import get_logger
 from util.debugger import mouse_callback
+from util.job import get_recording_id
 from ObjectCounter import ObjectCounter
 
 init_logger()
@@ -62,9 +64,12 @@ def run():
     record = settings.RECORD
     if record:
         # initialize video object to record counting
-        output_video = cv2.VideoWriter(settings.OUTPUT_VIDEO_PATH, \
-                                        cv2.VideoWriter_fourcc(*'MJPG'), \
-                                        30, \
+
+        file_path = os.path.join(settings.OUTPUT_VIDEO_DIRECTORY, get_recording_id() + '.avi')
+
+        output_video = cv2.VideoWriter(file_path,
+                                        cv2.VideoWriter_fourcc(*'MJPG'),
+                                        30,
                                         (f_width, f_height))
 
     logger.info('Processing started.', extra={

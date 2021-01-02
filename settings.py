@@ -95,8 +95,8 @@ except ValueError:
 
 # Set path where recorded video will be stored
 if RECORD:
-    if os.getenv('OUTPUT_VIDEO_PATH'):
-        OUTPUT_VIDEO_PATH = os.getenv('OUTPUT_VIDEO_PATH')
+    if os.getenv('OUTPUT_VIDEO_DIRECTORY'):
+        OUTPUT_VIDEO_DIRECTORY = os.getenv('OUTPUT_VIDEO_DIRECTORY')
     else:
         print('Output video path not set.')
         ENVS_READY = False
