@@ -11,7 +11,7 @@ import pafy
 import os
 
 from dotenv import load_dotenv
-load_dotenv()
+load_dotenv("american_highway_2.env")
 
 import settings
 from util.logger import init_logger
