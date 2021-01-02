@@ -65,10 +65,10 @@ def run():
     if record:
         # initialize video object to record counting
 
-        file_path = os.path.join(settings.OUTPUT_VIDEO_DIRECTORY, get_recording_id() + '.avi')
+        file_path = os.path.join(settings.OUTPUT_VIDEO_DIRECTORY, get_recording_id() + '.mp4')
 
         output_video = cv2.VideoWriter(file_path,
-                                        cv2.VideoWriter_fourcc(*'MJPG'),
+                                        cv2.VideoWriter_fourcc(*'mp4v'),
                                         30,
                                         (f_width, f_height))
 
