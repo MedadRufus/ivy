@@ -7,6 +7,7 @@ VCS entry point.
 import sys
 import time
 import cv2
+import pafy
 
 from dotenv import load_dotenv
 load_dotenv()
@@ -27,10 +28,14 @@ def run():
     Initialize object counter class and run counting loop.
     '''
 
-    video = settings.VIDEO
-    cap = cv2.VideoCapture(video)
+    video_url = settings.YOUTUBE_URL
+    youtube_url = pafy.new(video_url)
+    stream_url = youtube_url.getbest(preftype="mp4").url
+
+    cap = cv2.VideoCapture(stream_url)
+
     if not cap.isOpened():
-        logger.error('Invalid video source %s', video, extra={
+        logger.error('Invalid video source %s', video_url, extra={
             'meta': {'label': 'INVALID_VIDEO_SOURCE'},
         })
         sys.exit()

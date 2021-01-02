@@ -16,6 +16,15 @@ else:
     print('Path to video file not set.')
     ENVS_READY = False
 
+
+# URL of youtube video
+# E.g https://www.youtube.com/watch?v=1EiC9bvVGnk
+if os.getenv('YOUTUBE_URL'):
+    YOUTUBE_URL = os.getenv('YOUTUBE_URL')
+else:
+    print('Youtube URL not set.')
+    ENVS_READY = False
+
 # Specify a detection Region of Interest (ROI)
 # i.e a set of vertices that represent the area (polygon) where you want detections to be made
 # E.g [(750, 405), (1094, 398), (1569, 1028), (501, 1028)]
