@@ -9,20 +9,9 @@ import time
 import cv2
 import pafy
 import os
+import argparse
 
-from dotenv import load_dotenv
-load_dotenv("american_highway_2.env")
 
-import settings
-from util.logger import init_logger
-from util.image import take_screenshot
-from util.logger import get_logger
-from util.debugger import mouse_callback
-from util.job import get_recording_id
-from ObjectCounter import ObjectCounter
-
-init_logger()
-logger = get_logger()
 
 
 def run():
@@ -159,4 +148,27 @@ def run():
 
 
 if __name__ == '__main__':
+    from dotenv import load_dotenv
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--env_file', default="SouthLoop340.env")
+    args = parser.parse_args()
+    print(f'Using argfile: {args.env_file}')
+
+    load_dotenv(args.env_file)
+
+    import settings
+
+    from util.logger import init_logger
+    from util.image import take_screenshot
+    from util.logger import get_logger
+    from util.debugger import mouse_callback
+    from util.job import get_recording_id
+    from ObjectCounter import ObjectCounter
+
+    init_logger()
+    logger = get_logger()
+
+
+
     run()
