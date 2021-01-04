@@ -6,7 +6,7 @@ import pandas as pd
 
 target_env = "casa_grande.env"
 
-logs_dir = Path("../data/logs")
+logs_dir = Path("../data/test_logs")
 
 files = logs_dir.glob('*.log')
 
@@ -14,7 +14,8 @@ files = logs_dir.glob('*.log')
 data = []
 
 for i in files:
-    data += i.read_text().splitlines()
+    data_in_this_file = i.read_text().splitlines()
+    data += data_in_this_file
 
 timestamps = []
 
