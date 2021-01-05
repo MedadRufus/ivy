@@ -14,7 +14,7 @@ import argparse
 
 
 
-def run():
+def run(argfile):
     '''
     Initialize object counter class and run counting loop.
     '''
@@ -72,7 +72,9 @@ def run():
                 'tracker': tracker,
                 'use_droi': use_droi,
                 'droi': droi,
-                'counting_lines': counting_lines
+                'counting_lines': counting_lines,
+                "argfile": argfile
+
             },
         },
     })
@@ -89,6 +91,7 @@ def run():
     frames_processed = 0
 
     try:
+        counter = 0
         # main loop
         while retval:
             k = cv2.waitKey(1) & 0xFF
@@ -120,7 +123,7 @@ def run():
 
             processing_frame_rate = round(cv2.getTickFrequency() / (cv2.getTickCount() - _timer), 2)
             frames_processed += 1
-            logger.debug('Frame processed.', extra={
+            logger.info('Frame processed.', extra={
                 'meta': {
                     'label': 'FRAME_PROCESS',
                     'frames_processed': frames_processed,
@@ -130,7 +133,10 @@ def run():
                 },
             })
 
-            retval, frame = cap.read()
+            while counter <1:
+                retval, frame = cap.read()
+                counter+=1
+            counter = 0
     finally:
         # end capture, close window, close log file and video object if any
         cap.release()
@@ -151,7 +157,7 @@ if __name__ == '__main__':
     from dotenv import load_dotenv
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('--env_file', default="SouthLoop340.env")
+    parser.add_argument('--env_file', required=True)
     args = parser.parse_args()
     print(f'Using argfile: {args.env_file}')
 
@@ -171,4 +177,4 @@ if __name__ == '__main__':
 
 
 
-    run()
+    run(args.env_file)
