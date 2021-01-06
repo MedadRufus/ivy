@@ -117,7 +117,7 @@ def run():
         processing_frame_rate = round(cv2.getTickFrequency() / (cv2.getTickCount() - _timer), 2)
         frames_processed = round(cap.get(cv2.CAP_PROP_POS_FRAMES))
         frames_count = round(cap.get(cv2.CAP_PROP_FRAME_COUNT))
-        logger.debug('Frame processed.', extra={
+        logger.info('Frame processed.', extra={
             'meta': {
                 'label': 'FRAME_PROCESS',
                 'frames_processed': frames_processed,
