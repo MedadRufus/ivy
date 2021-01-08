@@ -23,7 +23,7 @@ class MongoLogger:
         mycol.insert_one(data_dict)
 
     def get_server_uuid(self):
-        computer_id = uuid.UUID(int=uuid.getnode())
+        computer_id = str(uuid.UUID(int=uuid.getnode()))
         return computer_id
 
 
