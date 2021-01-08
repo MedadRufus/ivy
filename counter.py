@@ -2,6 +2,9 @@
 
 import time
 from util.logger import get_logger
+from util.mongo_data_logger import MongoLogger
+
+ml = MongoLogger()
 
 
 logger = get_logger()
@@ -81,7 +84,7 @@ def attempt_count(blob, blob_id, counting_lines, counts):
 
             blob.lines_crossed.append(label)
 
-            logger.info('Object counted.', extra={
+            meta_dict = {
                 'meta': {
                     'label': 'OBJECT_COUNT',
                     'id': blob_id,
@@ -91,5 +94,10 @@ def attempt_count(blob, blob_id, counting_lines, counts):
                     'position_counted': blob.centroid,
                     'counted_at':time.time(),
                 },
-            })
+            }
+
+            logger.info('Object counted.', extra=meta_dict)
+
+            ml.log_data(meta_dict["meta"])
+
     return blob, counts
