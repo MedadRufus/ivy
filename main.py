@@ -11,7 +11,7 @@ import pafy
 import os
 import argparse
 
-
+args = None
 
 
 def run(argfile):
@@ -155,6 +155,7 @@ def run(argfile):
 
 if __name__ == '__main__':
     from dotenv import load_dotenv
+    from util.mongo_data_logger import init_mongo_logger
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--env_file', required=True)
@@ -163,6 +164,7 @@ if __name__ == '__main__':
 
     load_dotenv(args.env_file)
 
+    init_mongo_logger(args.env_file)
     import settings
 
     from util.logger import init_logger
