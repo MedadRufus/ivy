@@ -10,116 +10,107 @@ import cv2
 import pafy
 import os
 import argparse
+from flask import Flask, render_template, Response
+from camera import VideoCamera
+
 
 args = None
 
 
-def run(argfile):
-    '''
-    Initialize object counter class and run counting loop.
-    '''
 
-    video_url = settings.YOUTUBE_URL
-    youtube_url = pafy.new(video_url)
-    stream_url = youtube_url.getbest(preftype="mp4").url
 
-    cap = cv2.VideoCapture(stream_url)
 
-    if not cap.isOpened():
-        logger.error('Invalid video source %s', video_url, extra={
-            'meta': {'label': 'INVALID_VIDEO_SOURCE'},
-        })
-        sys.exit()
-    retval, frame = cap.read()
-    f_height, f_width, _ = frame.shape
-    detection_interval = settings.DI
-    mcdf = settings.MCDF
-    mctf = settings.MCTF
-    detector = settings.DETECTOR
-    tracker = settings.TRACKER
-    use_droi = settings.USE_DROI
-    # create detection region of interest polygon
-    droi = settings.DROI \
-            if use_droi \
-            else [(0, 0), (f_width, 0), (f_width, f_height), (0, f_height)]
-    show_droi = settings.SHOW_DROI
-    counting_lines = settings.COUNTING_LINES
-    show_counts = settings.SHOW_COUNTS
-    hud_color = settings.HUD_COLOR
+app = Flask(__name__)
 
-    object_counter = ObjectCounter(frame, detector, tracker, droi, show_droi, mcdf, mctf,
-                                   detection_interval, counting_lines, show_counts, hud_color)
+@app.route('/')
+def index():
+    return render_template('index.html')
 
-    record = settings.RECORD
-    if record:
-        # initialize video object to record counting
+def gen(camera):
+    while True:
+        frame = camera.get_frame()
+        yield (b'--frame\r\n'
+               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
 
-        file_path = os.path.join(settings.OUTPUT_VIDEO_DIRECTORY, get_recording_id() + '.avi')
+@app.route('/video_feed')
+def video_feed():
+    return Response(gen(VideoCamera()),
+                    mimetype='multipart/x-mixed-replace; boundary=frame')
 
-        output_video = cv2.VideoWriter(file_path,
-                                        cv2.VideoWriter_fourcc(*'MJPG'),
-                                        30,
-                                        (f_width, f_height))
 
-    logger.info('Processing started.', extra={
-        'meta': {
-            'label': 'START_PROCESS',
-            'counter_config': {
-                'di': detection_interval,
-                'mcdf': mcdf,
-                'mctf': mctf,
-                'detector': detector,
-                'tracker': tracker,
-                'use_droi': use_droi,
-                'droi': droi,
-                'counting_lines': counting_lines,
-                "argfile": argfile
+class YoutubeCamera:
 
+    def __init__(self,argfile):
+        '''
+        Initialize object counter class and run counting loop.
+        '''
+
+        video_url = settings.YOUTUBE_URL
+        youtube_url = pafy.new(video_url)
+        stream_url = youtube_url.getbest(preftype="mp4").url
+
+        cap = cv2.VideoCapture(stream_url)
+
+        if not cap.isOpened():
+            logger.error('Invalid video source %s', video_url, extra={
+                'meta': {'label': 'INVALID_VIDEO_SOURCE'},
+            })
+            sys.exit()
+        retval, frame = cap.read()
+        f_height, f_width, _ = frame.shape
+        detection_interval = settings.DI
+        mcdf = settings.MCDF
+        mctf = settings.MCTF
+        detector = settings.DETECTOR
+        tracker = settings.TRACKER
+        use_droi = settings.USE_DROI
+        # create detection region of interest polygon
+        droi = settings.DROI \
+                if use_droi \
+                else [(0, 0), (f_width, 0), (f_width, f_height), (0, f_height)]
+        show_droi = settings.SHOW_DROI
+        counting_lines = settings.COUNTING_LINES
+        show_counts = settings.SHOW_COUNTS
+        hud_color = settings.HUD_COLOR
+
+        object_counter = ObjectCounter(frame, detector, tracker, droi, show_droi, mcdf, mctf,
+                                       detection_interval, counting_lines, show_counts, hud_color)
+
+
+        logger.info('Processing started.', extra={
+            'meta': {
+                'label': 'START_PROCESS',
+                'counter_config': {
+                    'di': detection_interval,
+                    'mcdf': mcdf,
+                    'mctf': mctf,
+                    'detector': detector,
+                    'tracker': tracker,
+                    'use_droi': use_droi,
+                    'droi': droi,
+                    'counting_lines': counting_lines,
+                    "argfile": argfile
+
+                },
             },
-        },
-    })
+        })
 
-    headless = settings.HEADLESS
-    if not headless:
-        # capture mouse events in the debug window
-        cv2.namedWindow('Debug')
-        cv2.setMouseCallback('Debug', mouse_callback, {'frame_width': f_width, 'frame_height': f_height})
 
-    is_paused = False
-    output_frame = None
-    frames_count = round(cap.get(cv2.CAP_PROP_FRAME_COUNT))
-    frames_processed = 0
+        is_paused = False
+        output_frame = None
+        frames_count = round(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+        frames_processed = 0
 
-    try:
-        counter = 0
-        # main loop
-        while retval:
-            k = cv2.waitKey(1) & 0xFF
-            if k == ord('p'): # pause/play loop if 'p' key is pressed
-                is_paused = False if is_paused else True
-                logger.info('Loop paused/played.', extra={'meta': {'label': 'PAUSE_PLAY_LOOP', 'is_paused': is_paused}})
-            if k == ord('s') and output_frame is not None: # save frame if 's' key is pressed
-                take_screenshot(output_frame)
-            if k == ord('q'): # end video loop if 'q' key is pressed
-                logger.info('Loop stopped.', extra={'meta': {'label': 'STOP_LOOP'}})
-                break
-
-            if is_paused:
-                time.sleep(0.5)
-                continue
+    def do_in_main_loop(self):
+        try:
+            counter = 0
+            # main loop
 
             _timer = cv2.getTickCount() # set timer to calculate processing frame rate
 
             object_counter.count(frame)
             output_frame = object_counter.visualize()
 
-            if record:
-                output_video.write(output_frame)
-
-            if not headless:
-                debug_window_size = settings.DEBUG_WINDOW_SIZE
-                resized_frame = cv2.resize(output_frame, debug_window_size)
-                cv2.imshow('Debug', resized_frame)
 
             processing_frame_rate = round(cv2.getTickFrequency() / (cv2.getTickCount() - _timer), 2)
             frames_processed += 1
@@ -133,24 +124,16 @@ def run(argfile):
                 },
             })
 
-            while counter <1:
-                retval, frame = cap.read()
-                counter+=1
-            counter = 0
-    finally:
-        # end capture, close window, close log file and video object if any
-        cap.release()
-        if not headless:
-            cv2.destroyAllWindows()
-        if record:
-            output_video.release()
-        logger.info('Processing ended.', extra={
-            'meta': {
-                'label': 'END_PROCESS',
-                'counts': object_counter.get_counts(),
-                'completed': frames_count - frames_processed == 0,
-            },
-        })
+        finally:
+            # end capture, close window, close log file and video object if any
+            cap.release()
+            logger.info('Processing ended.', extra={
+                'meta': {
+                    'label': 'END_PROCESS',
+                    'counts': object_counter.get_counts(),
+                    'completed': frames_count - frames_processed == 0,
+                },
+            })
 
 
 if __name__ == '__main__':
@@ -179,4 +162,6 @@ if __name__ == '__main__':
 
 
 
-    run(args.env_file)
+    YoutubeCamera(args.env_file)
+
+    app.run(host='0.0.0.0', debug=True)
