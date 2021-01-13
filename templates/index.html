@@ -2,18 +2,13 @@
 <html>
   <head>
     <title>dashboard</title>
-    <style>
-	img {
-  	display: block;
-  	margin-left: auto;
-  	margin-right: auto;
-	width: 70%
-	}
-    </style>
   </head>
   <body>
-    <h1 align="center">Demo</h1>
-    <img id="bg" class="center" src="{{ url_for('video_feed') }}">
+    <h1 align="center">Live view of traffic</h1>
+    <img style="background: #FFFFFF;border: none;border-radius: 2px;box-shadow: 0 2px 10px 0 rgba(70, 76, 79, .2);" id="bg" class="center" src="{{ url_for('video_feed') }}" WIDTH="50%" align="center">
+
+    <iframe style="background: #FFFFFF;border: none;border-radius: 2px;box-shadow: 0 2px 10px 0 rgba(70, 76, 79, .2);" width="100%" height="480" src="https://charts.mongodb.com/charts-project-0-wlibw/embed/charts?id=d3fe97d6-b1ae-473d-bc16-737a45cecba6&autoRefresh=300&theme=light"></iframe>
+
 
   </body>
 </html>
