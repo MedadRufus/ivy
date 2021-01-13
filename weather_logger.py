@@ -15,7 +15,7 @@ def run():
 
 if __name__ == '__main__':
     from dotenv import load_dotenv
-    load_dotenv("american_junction.env")
+    load_dotenv("env_files/american_junction.env")
 
     from util.logger import init_logger
     from util.logger import get_logger
