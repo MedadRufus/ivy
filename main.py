@@ -134,7 +134,11 @@ if __name__ == '__main__':
 
 
 
+
     app = Flask(__name__)
+
+
+
 
 
     @app.route('/')
@@ -142,11 +146,11 @@ if __name__ == '__main__':
 
         html_data = get_data_html()
         current_weather = {
-            "like":39,
-            "current":23,
-            "min":29,
-            "hour":12,
-            "minute":13
+            "like":50,
+            "current":53,
+            "min":39,
+            "hour":7,
+            "minute":28
         }
         return render_template('index.html',html_data=html_data, current_weather=current_weather)
 
