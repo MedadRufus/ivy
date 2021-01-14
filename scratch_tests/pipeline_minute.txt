@@ -85,9 +85,6 @@
         },
         "hours": {
           "$hour": "$datetime"
-        },
-        "minutes": {
-          "$minute": "$datetime"
         }
       }
     }
@@ -134,8 +131,7 @@
       "x.year": 1,
       "x.month": 1,
       "x.date": 1,
-      "x.hours": 1,
-      "x.minutes": 1
+      "x.hours": 1
     }
   },
   {

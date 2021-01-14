@@ -17,14 +17,14 @@ pipeline = [
         "$convert": {
           "input": "$counted_at",
           "to": "double",
-          "onError": None
+          "onError": null
         }
       },
       "computer_id": {
         "$convert": {
           "input": "$computer_id",
           "to": "string",
-          "onError": None
+          "onError": null
         }
       }
     }
@@ -41,10 +41,16 @@ pipeline = [
       },
       "computer_id": {
         "$in": [
-          None,
+          null,
           "",
-          "00000000-0000-0000-0000-3cecef225486"
+          "00000000-0000-0000-0000-3cecef225486",
+          "00000000-0000-0000-0000-f894c218ae25"
         ]
+      },
+      "datetime": {
+        "$gte": {
+          "$date": "2021-01-04T03:32:13Z"
+        }
       }
     }
   },
@@ -61,7 +67,7 @@ pipeline = [
             ]
           },
           "then": "$datetime",
-          "else": None
+          "else": null
         }
       }
     }
@@ -85,6 +91,9 @@ pipeline = [
         },
         "hours": {
           "$hour": "$datetime"
+        },
+        "minutes": {
+          "$minute": "$datetime"
         }
       }
     }
@@ -131,7 +140,8 @@ pipeline = [
       "x.year": 1,
       "x.month": 1,
       "x.date": 1,
-      "x.hours": 1
+      "x.hours": 1,
+      "x.minutes": 1
     }
   },
   {
