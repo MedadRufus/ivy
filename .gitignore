@@ -2,7 +2,9 @@ data/*
 !data/.gitkeep
 .vscode/
 *.pyc
-.env
+env_files/.env
 .coverage
 venv/
 output.html
+static/startbootstrap-sb-admin-2-gh-pages/*
+*.p
