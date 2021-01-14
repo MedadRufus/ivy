@@ -365,7 +365,7 @@ def get_data_html():
     pio.renderers.default = 'browser'
 
     values = ["Temperature", "Wind Speed", "Wind Gust"]
-    fig = make_subplots(rows=len(values) + 2, cols=1,)#shared_xaxes=True)
+    fig = make_subplots(rows=len(values) + 2, cols=1, shared_xaxes=True,)
 
     fig.append_trace(go.Bar(
 
@@ -396,9 +396,9 @@ def get_data_html():
 
 
 
-    fig.update_layout(title_text="Human and Vehicle traffic data combined with weather data for Jackson Hole")
-    #fig.show()
-
+    fig.update_layout(title_text="Human and Vehicle traffic data combined with weather data for Tokyo Crosswalk")
+    # Use date string to set xaxis range
+    fig.update_layout(xaxis_range=['2021-01-05', '2021-1-13'])
 
 
     return fig.to_html(full_html=False)
