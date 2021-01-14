@@ -12,7 +12,7 @@ from .job import get_job_id
 
 
 class MetaFilter(logging.Filter):
-    '''
+    '''info
     Add meta field to log if one doesn't exist.
     '''
     def filter(self, record):
