@@ -3,7 +3,7 @@ def get_data_html():
     import pandas as pd
     import pickle
 
-    df = pickle.load(open("./data_analysis/jackson_hole_weather_df.p", "rb"))
+    df = pickle.load(open("./data_analysis/tokyo_crosswalk_weather_df.p", "rb"))
 
 
 
@@ -365,13 +365,13 @@ def get_data_html():
     pio.renderers.default = 'browser'
 
     values = ["Temperature", "Wind Speed", "Wind Gust"]
-    fig = make_subplots(rows=len(values) + 2, cols=1)
+    fig = make_subplots(rows=len(values) + 2, cols=1,)#shared_xaxes=True)
 
     fig.append_trace(go.Bar(
 
-        x=jackson_traffic_df["x"],
-        y=jackson_traffic_df["y"],
-        name="Jackson Hole traffic"
+        x=tokyo_crosswalk_traffic_df["x"],
+        y=tokyo_crosswalk_traffic_df["y"],
+        name="Tokyo traffic"
 
     ), row=1, col=1)
 
