@@ -9,7 +9,12 @@ import cv2
 import pafy
 import argparse
 from flask import Flask, render_template, Response
-
+from util.plotting import get_data_html
+# init mongo connection
+from pymongo import MongoClient
+import urllib.parse
+import datetime
+import pandas as pd
 
 args = None
 
@@ -101,6 +106,10 @@ class YoutubeCamera:
     def __del__(self):
         self.cap.release()
 
+
+
+
+
 if __name__ == '__main__':
     from dotenv import load_dotenv
     from util.mongo_data_logger import init_mongo_logger
@@ -130,7 +139,16 @@ if __name__ == '__main__':
 
     @app.route('/')
     def index():
-        return render_template('index.html')
+
+        html_data = get_data_html()
+        current_weather = {
+            "like":39,
+            "current":23,
+            "min":29,
+            "hour":12,
+            "minute":13
+        }
+        return render_template('index.html',html_data=html_data, current_weather=current_weather)
 
 
     def gen(camera):
