@@ -6,103 +6,207 @@
 <body>
 <h1 align="center">Live view of traffic and weather in Casa Grande, Arizona</h1>
 
-<div class="left-div">
-    <img style="background: #FFFFFF;border: none;border-radius: 2px;box-shadow: 0 2px 10px 0 rgba(70, 76, 79, .2);"
-         id="bg" class="center" src="{{ url_for('video_feed') }}" WIDTH="20%" align="center">
-</div>
-<div class="right-div">
-    <div id="DIV_1" style="background: #FFFFFF;border: none;border-radius: 2px;box-shadow: 0 2px 10px 0 rgba(70, 76, 79, .2);"  align="center">
-        <lib id="LIB-CITY-CURRENT-CONDITIONS_2">
-            <div id="DIV_3">
-                <div id="DIV_4">
-                    <p id="P_5">
+<!--<div class="left-div">-->
+<!--    <img style="background: #FFFFFF;border: none;border-radius: 2px;box-shadow: 0 2px 10px 0 rgba(70, 76, 79, .2);"-->
+<!--         id="bg" class="center" src="{{ url_for('video_feed') }}" WIDTH="70%" align="center">-->
+<!--</div>-->
+<!--<div class="right-div">-->
+<!--    <div id="DIV_1" style="background: #FFFFFF;border: none;border-radius: 2px;box-shadow: 0 2px 10px 0 rgba(70, 76, 79, .2);"  align="center">-->
+<!--        <lib id="LIB-CITY-CURRENT-CONDITIONS_2">-->
+<!--            <div id="DIV_3">-->
+<!--                <div id="DIV_4">-->
+<!--                    <p id="P_5">-->
+<!--                        <span id="SPAN_6"><strong id="STRONG_8">4:37 PM MST on January 13, 2021</strong> (GMT -7) <span-->
+<!--                                id="SPAN_9">|</span></span>-->
+<!--                        &lt;!&ndash;&ndash;&gt;-->
+<!--                        <span id="SPAN_10">Updated just now</span>-->
+<!--                        &lt;!&ndash;&ndash;&gt;-->
+
+<!--                    </p>-->
+<!--                </div>-->
+<!--                <div id="DIV_11">-->
+<!--                    <div id="DIV_12">-->
+<!--                        <div id="DIV_13">-->
+<!--                            <div id="DIV_14">-->
+<!--                                <span id="SPAN_15">&#45;&#45;°</span> <span id="SPAN_16">|</span> <span id="SPAN_17">42°</span>-->
+<!--                            </div>-->
+<!--                            <div id="DIV_18">-->
+<!--                                <lib id="LIB-DISPLAY-UNIT_19">-->
+<!--                                    <span id="SPAN_20"></span>-->
+<!--                                    &lt;!&ndash;&ndash;&gt;-->
+
+<!--                                    &lt;!&ndash;&ndash;&gt;-->
+
+<!--                                    &lt;!&ndash;&ndash;&gt;-->
+<!--                                    <span id="SPAN_21">65</span> <span id="SPAN_22"><span id="SPAN_23">F</span></span>-->
+<!--                                    &lt;!&ndash;&ndash;&gt;-->
+
+<!--                                    &lt;!&ndash;&ndash;&gt;-->
+
+<!--                                    &lt;!&ndash;&ndash;&gt;-->
+
+<!--                                    &lt;!&ndash;&ndash;&gt;-->
+
+<!--                                    &lt;!&ndash;&ndash;&gt;-->
+
+<!--                                </lib>-->
+<!--                            </div>-->
+<!--                            <div id="DIV_24">-->
+<!--                                like <span id="SPAN_25">65°</span>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div id="DIV_26">-->
+<!--                    <div id="DIV_27">-->
+<!--                        <div id="DIV_28">-->
+<!--                            <img alt="icon" src="https://www.wunderground.com/static/i/c/v4/30.svg" id="IMG_29"/>-->
+<!--                            <p id="P_30">-->
+<!--                                Partly Cloudy-->
+<!--                            </p>-->
+<!--                        </div>-->
+<!--                        <div id="DIV_31">-->
+<!--                            <lib id="LIB-WIND-GAUGE_32">-->
+<!--                                <div id="DIV_33">-->
+<!--                                    <div id="DIV_34">-->
+<!--                                        <div id="DIV_35">-->
+<!--                                            <div id="DIV_36">-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    <div id="DIV_37">-->
+<!--                                        N-->
+<!--                                    </div>-->
+<!--                                    <header id="HEADER_38">-->
+<!--                                        <strong id="STRONG_39">4</strong>-->
+<!--                                    </header>-->
+<!--                                </div>-->
+<!--                            </lib>-->
+<!--                            &lt;!&ndash;&ndash;&gt;-->
+
+<!--                            &lt;!&ndash;&ndash;&gt;-->
+
+<!--                            &lt;!&ndash;&ndash;&gt;-->
+
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                &lt;!&ndash;&ndash;&gt;-->
+
+<!--            </div>-->
+<!--            &lt;!&ndash;&ndash;&gt;-->
+
+<!--        </lib>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<iframe style="background: #FFFFFF;border: none;border-radius: 2px;box-shadow: 0 2px 10px 0 rgba(70, 76, 79, .2);"-->
+<!--        width="100%" height="480"-->
+<!--        src="https://charts.mongodb.com/charts-project-0-wlibw/embed/charts?id=94e462b1-0546-436e-87f4-bc21e7c742c6&theme=light"></iframe>-->
+
+<div class="wrapper">
+    <div class="video" style="background: #FFFFFF;border: none;border-radius: 2px;box-shadow: 0 2px 10px 0 rgba(70, 76, 79, .2);">
+        <img align="center" class="center" id="bg" src="{{ url_for('video_feed') }}" style='height: 100%; width: 100%; object-fit: contain'>
+    </div>
+    <div class="weather" style="background: rgba(76, 175, 80, 0.3);opacity: 1.0;border: none;border-radius: 2px;box-shadow: 0 2px 10px 0 rgba(70, 76, 79, .2);">
+        <div align="center" id="DIV_1" >
+            <lib id="LIB-CITY-CURRENT-CONDITIONS_2">
+                <div id="DIV_3">
+                    <div id="DIV_4">
+                        <p id="P_5">
                         <span id="SPAN_6"><strong id="STRONG_8">4:37 PM MST on January 13, 2021</strong> (GMT -7) <span
                                 id="SPAN_9">|</span></span>
-                        <!---->
-                        <span id="SPAN_10">Updated just now</span>
-                        <!---->
+                            <!---->
+                            <span id="SPAN_10">Updated just now</span>
+                            <!---->
 
-                    </p>
-                </div>
-                <div id="DIV_11">
-                    <div id="DIV_12">
-                        <div id="DIV_13">
-                            <div id="DIV_14">
-                                <span id="SPAN_15">--°</span> <span id="SPAN_16">|</span> <span id="SPAN_17">42°</span>
-                            </div>
-                            <div id="DIV_18">
-                                <lib id="LIB-DISPLAY-UNIT_19">
-                                    <span id="SPAN_20"></span>
-                                    <!---->
+                        </p>
+                    </div>
+                    <div id="DIV_11">
+                        <div id="DIV_12">
+                            <div id="DIV_13">
+                                <div id="DIV_14">
+                                    <span id="SPAN_15">--°</span> <span id="SPAN_16">|</span> <span
+                                        id="SPAN_17">42°</span>
+                                </div>
+                                <div id="DIV_18">
+                                    <lib id="LIB-DISPLAY-UNIT_19">
+                                        <span id="SPAN_20"></span>
+                                        <!---->
 
-                                    <!---->
+                                        <!---->
 
-                                    <!---->
-                                    <span id="SPAN_21">65</span> <span id="SPAN_22"><span id="SPAN_23">F</span></span>
-                                    <!---->
+                                        <!---->
+                                        <span id="SPAN_21">65</span> <span id="SPAN_22"><span
+                                            id="SPAN_23">F</span></span>
+                                        <!---->
 
-                                    <!---->
+                                        <!---->
 
-                                    <!---->
+                                        <!---->
 
-                                    <!---->
+                                        <!---->
 
-                                    <!---->
+                                        <!---->
 
-                                </lib>
-                            </div>
-                            <div id="DIV_24">
-                                like <span id="SPAN_25">65°</span>
+                                    </lib>
+                                </div>
+                                <div id="DIV_24">
+                                    like <span id="SPAN_25">65°</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div id="DIV_26">
-                    <div id="DIV_27">
-                        <div id="DIV_28">
-                            <img alt="icon" src="https://www.wunderground.com/static/i/c/v4/30.svg" id="IMG_29"/>
-                            <p id="P_30">
-                                Partly Cloudy
-                            </p>
-                        </div>
-                        <div id="DIV_31">
-                            <lib id="LIB-WIND-GAUGE_32">
-                                <div id="DIV_33">
-                                    <div id="DIV_34">
-                                        <div id="DIV_35">
-                                            <div id="DIV_36">
+                    <div id="DIV_26">
+                        <div id="DIV_27">
+                            <div id="DIV_28">
+                                <img alt="icon" id="IMG_29" src="https://www.wunderground.com/static/i/c/v4/30.svg"/>
+                                <p id="P_30">
+                                    Partly Cloudy
+                                </p>
+                            </div>
+                            <div id="DIV_31">
+                                <lib id="LIB-WIND-GAUGE_32">
+                                    <div id="DIV_33">
+                                        <div id="DIV_34">
+                                            <div id="DIV_35">
+                                                <div id="DIV_36">
+                                                </div>
                                             </div>
                                         </div>
+                                        <div id="DIV_37">
+                                            N
+                                        </div>
+                                        <header id="HEADER_38">
+                                            <strong id="STRONG_39">4</strong>
+                                        </header>
                                     </div>
-                                    <div id="DIV_37">
-                                        N
-                                    </div>
-                                    <header id="HEADER_38">
-                                        <strong id="STRONG_39">4</strong>
-                                    </header>
-                                </div>
-                            </lib>
-                            <!---->
+                                </lib>
+                                <!---->
 
-                            <!---->
+                                <!---->
 
-                            <!---->
+                                <!---->
 
+                            </div>
                         </div>
                     </div>
+                    <!---->
+
                 </div>
                 <!---->
 
-            </div>
-            <!---->
-
-        </lib>
+            </lib>
+        </div>
     </div>
+    <div class="plot" style="background: #FFFFFF;border: none;border-radius: 2px;box-shadow: 0 2px 10px 0 rgba(70, 76, 79, .2);">
+        {{ html_data | safe }}
+    </div>
+
 </div>
 
-<iframe style="background: #FFFFFF;border: none;border-radius: 2px;box-shadow: 0 2px 10px 0 rgba(70, 76, 79, .2);"
-        width="100%" height="480"
-        src="https://charts.mongodb.com/charts-project-0-wlibw/embed/charts?id=d3fe97d6-b1ae-473d-bc16-737a45cecba6&autoRefresh=300&theme=light"></iframe>
+
+
 
 <style>
 .left-div {
@@ -110,6 +214,29 @@
 }
 .right-div {
   margin: 0 auto;
+}
+
+
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  grid-auto-rows: minmax(100px, auto);
+}
+.video {
+  grid-column: 1;
+  grid-row: 1;
+
+}
+.weather {
+  grid-column: 2;
+  grid-row: 1;
+}
+.plot {
+  grid-column: 1 / 2;
+  grid-row: 2;
+}
+
 }
 
 
