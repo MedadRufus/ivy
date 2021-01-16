@@ -3,11 +3,14 @@ Ivy is an open-source video-based object counting software for tallying pretty m
 
 ![](object_counting.jpg)
 
+# Raw data
+The data dasboard for all data collected from traffic and weather can be found here: (Mongodb Dashboard)[https://charts.mongodb.com/charts-project-0-wlibw/public/dashboards/5ff7d266-6fa8-43b5-8532-45e3047c4622]
+
 ## Requirements
 - Python 3 (tested with versions 3.5, 3.6 and 3.7)
 
 ## Setup
-- Clone this repo `git@github.com:nicholaskajoh/ivy.git`.
+- Clone this repo `git@github.com:MedadRufus/ivy.git`.
 - Create and/or use a virtual environment (optional but recommended).
 - Install the dependencies in _requirements.txt_ `pip install -r requirements.txt`.
 - Choose a detector and install its dependencies where necessary (if you're not sure what to pick, we recommend you start with `yolo`).
