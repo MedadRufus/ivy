@@ -1,10 +1,10 @@
-# Ivy
-Ivy is an open-source video-based object counting software for tallying pretty much anything (vehicles, people, animals — you name it).
+# Traffic and Weather dashboard
+Ivy is an open-source video-based object counting software for tallying weather and traffic information from live video streams from Youtube
 
-![](object_counting.jpg)
+![](images/image.png)
 
 # Raw data
-The data dasboard for all data collected from traffic and weather can be found here: (Mongodb Dashboard)[https://charts.mongodb.com/charts-project-0-wlibw/public/dashboards/5ff7d266-6fa8-43b5-8532-45e3047c4622]
+The data dasboard for all data collected from traffic and weather can be found here: [Mongodb Dashboard](https://charts.mongodb.com/charts-project-0-wlibw/public/dashboards/5ff7d266-6fa8-43b5-8532-45e3047c4622)
 
 ## Requirements
 - Python 3 (tested with versions 3.5, 3.6 and 3.7)
@@ -41,5 +41,4 @@ By default, Ivy runs in "debug mode" which provides you a window to monitor the 
 - press the `q` key to quit the program
 - click any point on the window to log the coordinates of the pixel in that position
 
-## Community
-Got questions, contributions, suggestions, concerns? [Join our community on Spectrum](https://spectrum.chat/ivy)! Also follow us on Twitter [@CountWithIvy](https://twitter.com/CountWithIvy) to get notified about new features, fixes and initiatives.
+
