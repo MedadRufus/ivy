@@ -1,10 +1,10 @@
 # Traffic and Weather dashboard
-Ivy is an open-source video-based object counting software for tallying weather and traffic information from live video streams from Youtube
+This dashbaord is an open-source video-based object counting software for tallying weather and traffic information from live video streams from Youtube
 
 ![](images/image.png)
 
 # Raw data
-The data dasboard for all data collected from traffic and weather can be found here: [Mongodb Dashboard](https://charts.mongodb.com/charts-project-0-wlibw/public/dashboards/5ff7d266-6fa8-43b5-8532-45e3047c4622)
+The data dashboard for all data collected from traffic and weather can be found here: [Mongodb Dashboard](https://charts.mongodb.com/charts-project-0-wlibw/public/dashboards/5ff7d266-6fa8-43b5-8532-45e3047c4622)
 
 ## Requirements
 - Python 3 (tested with versions 3.5, 3.6 and 3.7)
